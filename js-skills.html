@@ -529,9 +529,62 @@
 </fieldset>
 
 <script>
-    var PRIME_COLORS = ['orange', 'midnightblue', 'darkgoldenrod', 'green', 'purple'];
+    // Calculate Prime Numbers
+    function normalPrime(max){
+      var primes = new Array();
+      // Loop through all numbers
+      for (var i = 1; i <=max; i++){
+        var isPrime = true;
+        for (var j = 2; j < i; j++){
+          // if divisible by that number, stop, isn't a prime number
+          if (i%j === 0){
+            isPrime = false;
+            break;
+          }
+        }
+        if (isPrime){
+          primes.push(i);  
+        }
+      }
+      return primes;
+    }
 
-  // put the rest of your code here
+    
+    function createBoxes(numBoxes){
+      boxString = ''
+      var randomPrime, randomIndex, randomColor
+      
+      // put colors in here to use each color only once
+      var PRIME_COLORS = ['orange', 'midnightblue', 'darkgoldenrod', 'green', 'purple', 'cadetblue', 'chartreuse', 'darkorchid', 'darkturquoise', 'deeppink', 'hotpink', 'palegreen', 'peru', 'plum', 'powderblue', 'mediumorchid', 'mediumseagreen', 'mediumturquoise', 'mistyrose', 'olive', 'teal', 'tomato', 'wheat', 'skyblue', 'seashell', 'royalblue', 'rosybrown', 'yellowgreen'];
+      // select a starting prime number at random and find its index to pull sequential primes
+      randomPrime = primesList[Math.floor(Math.random(0,1)*(primesList.length-numBoxes))];
+      randomIndex = primesList.indexOf(randomPrime);
+
+      for (var i = 0; i<numBoxes; i++){
+        randomColor = PRIME_COLORS[Math.floor(Math.random(0,1)*PRIME_COLORS.length)];
+        PRIME_COLORS.splice(PRIME_COLORS.indexOf(randomColor),1);
+        currentPrime = primesList[randomIndex+i];
+        // var randomPrime = firstFivePrimes[Math.floor(Math.random(0,1)*firstFivePrimes.length)];
+        boxString = boxString + '<div class="prime-box" style="background-color: ' + randomColor + '">' + currentPrime + '</div>';
+        // boxString = boxString + '<div class="prime-box" style="background-color: ' + randomColor + '">' + primesList[i] + '</div>';
+      }
+      return boxString
+    }
+
+    function populateBoxes(){
+      primesList = normalPrime(1000);
+      // calculate number of boxes that will fit (responsive), include margin around prime box
+      numberOfBoxes = Math.floor($('#prime-box-area').width()/$('.prime-box').outerWidth(true));
+      boxHtml = createBoxes(numberOfBoxes);
+
+      // firstFivePrimes = primes100.slice(1,6);
+      // boxHtml = createBoxes(firstFivePrimes.length);
+      $('#prime-box-area').html(boxHtml);
+    }
+
+    $('#make-prime-boxes').on('click', populateBoxes);
+    
+
 </script>
 
 
