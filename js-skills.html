@@ -444,6 +444,57 @@
 
 <script>
   // put your code here
+
+  function resetGame(){
+    $('#number-guessing-msg').html('');
+    $('#play-guessing-game-2').removeAttr('disabled');  
+    $('#number-guessed').val('');
+    $('#number-guessed').attr('disabled', 'disabled');
+    $('#try-this-number').attr('disabled', 'disabled');
+    }
+
+  function submitGuess(evt) {
+    evt.preventDefault();
+    checkGuess($('#number-guessed').val(), randomNumber);
+  }
+
+  function checkGuess(guess, randomNumber){
+    // prompt user to keep guessing until they guess the correct number
+    console.log(guess);
+    console.log(randomNumber);
+    if (guess < randomNumber){
+        $('#number-guessing-msg').html('Too low. Guess again:');
+    } else if (guess > randomNumber){
+        $('#number-guessing-msg').html('Too high. Guess again:');
+    } // end if-else
+    else {
+        // if guess was correct   
+        $('#number-guessing-msg').html("Congrats! " + randomNumber + " was my guess!");
+        setTimeout(resetGame, 2000);
+    }
+  
+  } // end checkGuess
+
+
+  function guessingGame2(){
+    // disable "play!" button during gameplay
+    $("#play-guessing-game-2").attr('disabled', 'disabled');
+
+    // enable try-this-number button and number-guessed field
+    $('#number-guessed').removeAttr('disabled');
+    $('#try-this-number').removeAttr('disabled');
+
+    // pick a random integer between 1 and 100
+    randomNumber = Math.floor(Math.random(0,1) * 101); // want this to be global ...
+    console.log(randomNumber);
+    //var guess = prompt('Enter an integer from 1 to 100:');
+
+    $('#guessing-game-2-form').on('submit', submitGuess);
+         
+  }
+
+  $("#play-guessing-game-2").on('click', guessingGame2);
+
 </script>
 
 
