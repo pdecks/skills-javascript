@@ -386,6 +386,24 @@
 
 <script>
   // put your code here
+
+  function guessingGame(){
+    // pick a random integer between 1 and 100
+    var numToGuess = Math.floor(Math.random(0,1) * 101);
+    console.log(numToGuess);
+    var guess = prompt('Enter an integer from 1 to 100:');
+    // prompt user to keep guessing until they guess the correct number
+    while (guess != numToGuess){
+      if (guess < numToGuess){
+        guess = prompt('Too low. Guess again:');
+      } else {
+        guess = prompt('Too high. Guess again:');
+      }
+    }
+    alert("Congrats! " + numToGuess + " was my guess!");
+  }
+
+  $("#play-guessing-game").on('click', guessingGame);
 </script>
 
 <div class="hint">
