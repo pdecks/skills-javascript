@@ -350,6 +350,13 @@
 
 <script>
   // put your code here
+  function agreesWithUser(evt){
+    evt.preventDefault();
+
+    $('#agreeable-text').html('I like '+ $('#favorite-food-input').val() + ', too.');
+  }
+
+  $('#agreeable-form').on('submit', agreesWithUser);
 </script>
 
 <div class="hint">
