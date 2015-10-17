@@ -197,7 +197,7 @@
 //  Here's a stub of a function you can use!
 
  function reverseString() {
-   var msg = prompt("Enter a string:"); //"Porcupines are cute";
+   var msg = prompt("Enter a string:"); // e.g. "Porcupines are cute"
 
    // do some stuff here to reverse that string into a new variable
    var newMsg = msg.split('').reverse().join('');
@@ -221,7 +221,7 @@
 <p>You should use jQuery for these parts.</p>
 <p>We didn't include jQuery in this document, though&mdash;so your first task is to include it!</p>
 
-
+<script src="https://code.jquery.com/jquery.js"></script>
 
 <h3>Finding the Button</h3>
 <p>
@@ -229,11 +229,14 @@
 </p>
 
 <fieldset>
-  <input type="button" class="tricky-to-find" id="mybutton" value="Pop-Up Please!">
+  <input type="button" class="tricky-to-find" value="Pop-Up Please!">
 </fieldset>
 
 <script>
+
   // code here for above problem
+  $('.tricky-to-find').on('click', function() {alert("Not enough cute cat photos. FAIL.");} );
+
 </script>
 
 <div class="hint">
@@ -261,6 +264,10 @@
 
 <script>
   // put your code here
+  function changeToDog(){
+    $('#kittenz-rule').attr("src", "http://www.little-furry-things.com/calvin-hobbes-decker/DSC_4133.jpg").attr("alt", "I am Hobbes!");
+  }
+  $('#kittenz-rule').on('dblclick', changeToDog);
 </script>
 
 <div class="hint">
@@ -294,6 +301,12 @@
 
 <script>
   // put your code here
+  function showPorcupine(){
+    setTimeout(function() {$('#cute-porcupine-image').fadeIn(1000);}, 1000)
+  }
+
+  $('#make-a-porcupine').on('mousedown', showPorcupine);
+
 </script>
 
 <div class="hint">
