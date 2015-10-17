@@ -553,20 +553,28 @@
     function createBoxes(numBoxes){
       boxString = ''
       var randomPrime, randomIndex, randomColor
+      boxStrings = new Array();
       
       // put colors in here to use each color only once
       var PRIME_COLORS = ['orange', 'midnightblue', 'darkgoldenrod', 'green', 'purple', 'cadetblue', 'chartreuse', 'darkorchid', 'darkturquoise', 'deeppink', 'hotpink', 'palegreen', 'peru', 'plum', 'powderblue', 'mediumorchid', 'mediumseagreen', 'mediumturquoise', 'mistyrose', 'olive', 'teal', 'tomato', 'wheat', 'skyblue', 'seashell', 'royalblue', 'rosybrown', 'yellowgreen'];
+      
       // select a starting prime number at random and find its index to pull sequential primes
       randomPrime = primesList[Math.floor(Math.random(0,1)*(primesList.length-numBoxes))];
       randomIndex = primesList.indexOf(randomPrime);
 
+      // for each box, select a prime number and random number
       for (var i = 0; i<numBoxes; i++){
         randomColor = PRIME_COLORS[Math.floor(Math.random(0,1)*PRIME_COLORS.length)];
         PRIME_COLORS.splice(PRIME_COLORS.indexOf(randomColor),1);
         currentPrime = primesList[randomIndex+i];
-        // var randomPrime = firstFivePrimes[Math.floor(Math.random(0,1)*firstFivePrimes.length)];
+        
+        // save the current box string html for resizing ability
+        currentBoxString = '<div class="prime-box" style="background-color: ' + randomColor + '">' + currentPrime + '</div>';
+        boxStrings.push(currentBoxString);        
+        // concatenate the html string to add the current box
+
         boxString = boxString + '<div class="prime-box" style="background-color: ' + randomColor + '">' + currentPrime + '</div>';
-        // boxString = boxString + '<div class="prime-box" style="background-color: ' + randomColor + '">' + primesList[i] + '</div>';
+      
       }
       return boxString
     }
@@ -582,8 +590,25 @@
       $('#prime-box-area').html(boxHtml);
     }
 
+    function resizeBoxes(){
+      newNumBoxes = Math.floor($('#prime-box-area').width()/$('.prime-box').outerWidth(true));
+      if (numberOfBoxes < newNumBoxes){
+        populateBoxes();
+      }      
+      else { 
+        boxString = '';
+        for (var i = 0; i<newNumBoxes; i++){
+          boxString = boxString + boxStrings[i];
+        }
+
+        $('#prime-box-area').html(boxString);
+      }
+
+    }
+
+
     $('#make-prime-boxes').on('click', populateBoxes);
-    
+    $(window).on('resize', resizeBoxes);
 
 </script>
 
