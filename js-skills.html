@@ -453,27 +453,27 @@
     $('#try-this-number').attr('disabled', 'disabled');
     }
 
-  function submitGuess(evt) {
-    evt.preventDefault();
-    checkGuess($('#number-guessed').val(), randomNumber);
-  }
+  // function submitGuess(evt) {
+  //   evt.preventDefault();
+  //   checkGuess($('#number-guessed').val(), randomNumber);
+  // }
 
-  function checkGuess(guess, randomNumber){
-    // prompt user to keep guessing until they guess the correct number
-    console.log(guess);
-    console.log(randomNumber);
-    if (guess < randomNumber){
-        $('#number-guessing-msg').html('Too low. Guess again:');
-    } else if (guess > randomNumber){
-        $('#number-guessing-msg').html('Too high. Guess again:');
-    } // end if-else
-    else {
-        // if guess was correct   
-        $('#number-guessing-msg').html("Congrats! " + randomNumber + " was my guess!");
-        setTimeout(resetGame, 2000);
-    }
+  // function checkGuess(guess, randomNumber){
+  //   // prompt user to keep guessing until they guess the correct number
+  //   console.log(guess);
+  //   console.log(randomNumber);
+  //   if (guess < randomNumber){
+  //       $('#number-guessing-msg').html('Too low. Guess again:');
+  //   } else if (guess > randomNumber){
+  //       $('#number-guessing-msg').html('Too high. Guess again:');
+  //   } // end if-else
+  //   else {
+  //       // if guess was correct   
+  //       $('#number-guessing-msg').html("Congrats! " + randomNumber + " was my guess!");
+  //       setTimeout(resetGame, 2000);
+  //   }
   
-  } // end checkGuess
+  // } // end checkGuess
 
 
   function guessingGame2(){
@@ -485,9 +485,31 @@
     $('#try-this-number').removeAttr('disabled');
 
     // pick a random integer between 1 and 100
-    randomNumber = Math.floor(Math.random(0,1) * 101); // want this to be global ...
+    var randomNumber = Math.floor(Math.random(0,1) * 101); // used closure to make accessible to inner functions
     console.log(randomNumber);
     //var guess = prompt('Enter an integer from 1 to 100:');
+
+    function submitGuess(evt) {
+      evt.preventDefault();
+      checkGuess($('#number-guessed').val());
+    } // end submitGuess
+
+    function checkGuess(guess){
+      // prompt user to keep guessing until they guess the correct number
+      console.log(guess);
+      console.log(randomNumber);
+      if (guess < randomNumber){
+          $('#number-guessing-msg').html('Too low. Guess again:');
+      } else if (guess > randomNumber){
+          $('#number-guessing-msg').html('Too high. Guess again:');
+      } // end if-else
+      else {
+          // if guess was correct   
+          $('#number-guessing-msg').html("Congrats! " + randomNumber + " was my guess!");
+          setTimeout(resetGame, 2000);
+      }
+    
+    } // end checkGuess
 
     $('#guessing-game-2-form').on('submit', submitGuess);
          
